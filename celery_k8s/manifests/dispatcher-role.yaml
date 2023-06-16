@@ -1,0 +1,30 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: celery-job-dispatcher
+  namespace: ""
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+  - apiGroups:
+      - "batch"
+    resources:
+      - jobs
+    verbs:
+      - "*"
+  - apiGroups:
+      - celeryq.dev
+    resources:
+      - "*"
+    verbs:
+      - "*"

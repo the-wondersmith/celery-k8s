@@ -1,0 +1,34 @@
+# [Cocogitto](https://docs.cocogitto.io/) Configuration
+
+tag_prefix = "v"
+from_latest_tag = false
+ignore_merge_commits = true
+branch_whitelist = [ "main", "release/**" ]
+pre_bump_hooks = [
+    "poetry run pytest/",
+    "echo 'bumping from {{latest}} to {{version}}'",
+    "(gsed || sed) -i 's#{{latest}}#{{version}}#g' pyproject.toml",
+]
+post_bump_hooks = []
+pre_package_bump_hooks = []
+post_package_bump_hooks = []
+
+
+[commit_types]
+
+hotfix = { changelog_title = "Hotfixes" }
+release = { changelog_title = "Releases" }
+wip = { changelog_title = "Work In Progress", omit_from_changelog = true }
+
+[changelog]
+
+path = "CHANGELOG.md"
+authors = [
+  { signature = "Mark S. <the@wondersmith.dev>", username = "thewondersmith" },
+]
+
+
+[bump_profiles]
+
+
+[packages]
